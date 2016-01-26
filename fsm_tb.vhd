@@ -45,6 +45,87 @@ BEGIN
 	ASSERT (s_output = '0') REPORT "When reading a meaningless character, the output should be '0'" SEVERITY ERROR;
 	REPORT "_______________________";
     
+	-- line comment tests
+	
+	REPORT "Test line comment success: //abc\n";
+	REPORT "_______________________";
+	
+	REPORT "Test line comment success: ab//c\n";
+	REPORT "_______________________";
+	
+	REPORT "Test line comment multiple lines: //a\nb //c\n";
+	REPORT "_______________________";
+	
+	REPORT "Test line comment // in comment: //a//b\n";
+	REPORT "_______________________";
+	
+	REPORT "Test line comment multiple /: //////\n";
+	REPORT "_______________________";
+	
+	REPORT "Test line comment empty: //\n";
+	REPORT "_______________________";
+	
+	REPORT "Test line comment multiple new line: //abc\n\n";
+	REPORT "_______________________";
+	
+	REPORT "Test line comment single slash: /abc\n";
+	REPORT "_______________________";
+	
+	REPORT "Test line comment consecutive comments: //\n//\n";
+	REPORT "_______________________";
+	
+	REPORT "Test line comment: /a/bc\n";
+	REPORT "_______________________";
+	
+	-- block comment tests
+	
+	REPORT "Test block comment success: /*abc*/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment success: ab/*c*/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment empty comment: /**/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment multiple lines: /*a\n\na*/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment multiple stars: /*****/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment middle star: /*a*c*/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment consecutive comments: /**//**/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment missing star: /*abc/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment: /*a*b/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment: /a*bc*/";
+	REPORT "_______________________";
+	
+	-- combined tests
+	
+	REPORT "Test line comment followed by block comment: //\n/**/";
+	REPORT "_______________________";
+	
+	REPORT "Test block comment followed by line comment: /**///\n";
+	REPORT "_______________________";
+	
+	REPORT "Test: /*a*//a\n";
+	REPORT "_______________________";
+	
+	REPORT "Test: /*//\n*/";
+	REPORT "_______________________";
+	
+	REPORT "Test: ///**/\n";
+	REPORT "_______________________";
+	
 	WAIT;
 END PROCESS stim_process;
 END;
