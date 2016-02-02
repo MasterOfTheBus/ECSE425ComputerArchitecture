@@ -53,6 +53,16 @@ BEGIN
 	ASSERT (s_op5 = -48) REPORT "Multiplying op3 * op4 = 12 * -4 did not produce -48" SEVERITY ERROR;
 	--WAIT FOR 1 * clk_period;
 	ASSERT (s_final_output = 174) REPORT "Subtracting op2 - op5 = 126 - (-48) did not produce 174" SEVERITY ERROR;
+	
+	REPORT "Changing b = 5";
+	s_b <= 5;
+	WAIT FOR 1 * clk_period;
+	ASSERT (s_op1 = 6) REPORT "Adding a + b = 1 + 5 did not produce 6" SEVERITY ERROR;
+	ASSERT (s_op3 = 12) REPORT "Multiplying c * d = 3 * 4 did not produce 12" SEVERITY ERROR;
+	ASSERT (s_op4 = -4) REPORT "Subtracting a - e = 1 - 5 did not produce -4" SEVERITY ERROR;
+	ASSERT (s_op2 = 252) REPORT "Multiplying op1 * 42 = 6 * 42 did not produce 252" SEVERITY ERROR;
+	ASSERT (s_op5 = -48) REPORT "Multiplying op3 * op4 = 12 * -4 did not produce -48" SEVERITY ERROR;
+	ASSERT (s_final_output =300) REPORT "Subtracting op2 - op5 = 252 - (-48) did not produce 300" SEVERITY ERROR;
 
 	WAIT;
 END PROCESS stim_process;
