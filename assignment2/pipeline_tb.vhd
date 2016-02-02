@@ -38,6 +38,22 @@ END PROCESS;
 stim_process: PROCESS
 BEGIN   
 	--TODO: Stimulate the inputs for the pipelined equation ((a + b) * 42) - (c * d * (a - e)) and assert the results
+	REPORT "Sanity check: testing a = 1, b = 2, c = 3, d = 4, e = 5";
+	s_a <= 1;
+	s_b <= 2;
+	s_c <= 3;
+	s_d <= 4;
+	s_e <= 5;
+	WAIT FOR 1 * clk_period;
+	ASSERT (s_op1 = 3) REPORT "Adding a + b = 1 + 2 did not produce 3" SEVERITY ERROR;
+	ASSERT (s_op3 = 12) REPORT "Multiplying c * d = 3 * 4 did not produce 12" SEVERITY ERROR;
+	ASSERT (s_op4 = -4) REPORT "Subtracting a - e = 1 - 5 did not produce -4" SEVERITY ERROR;
+	--WAIT FOR 1 * clk_period;
+	ASSERT (s_op2 = 126) REPORT "Multiplying op1 * 42 = 3 * 42 did not produce 126" SEVERITY ERROR;
+	ASSERT (s_op5 = -48) REPORT "Multiplying op3 * op4 = 12 * -4 did not produce -48" SEVERITY ERROR;
+	--WAIT FOR 1 * clk_period;
+	ASSERT (s_final_output = 174) REPORT "Subtracting op2 - op5 = 126 - (-48) did not produce 174" SEVERITY ERROR;
+
 	WAIT;
 END PROCESS stim_process;
 END;

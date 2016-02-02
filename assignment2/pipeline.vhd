@@ -10,21 +10,33 @@ port (clk : in std_logic;
 end pipeline;
 
 architecture behavioral of pipeline is
-	signal op1_sig: integer;
-	signal op3_sig: integer;
-	signal op4_sig: integer;
-	signal op2_sig_42: integer;
-	signal op5_sig: integer;
-
 begin
 -- todo: complete this
 process (clk)
-	op1 <= a + b; -- wrong
-	op3 <= c * d;
-	op4 <= a - e;
 
-	op2 <= op1
+	variable op1_var: integer;
+	variable op3_var: integer;
+	variable op4_var: integer;
+	variable op2_var: integer;
+	variable op5_var: integer;
+
 begin
+	op1_var := a + b;
+	op1 <= op1_var;
+	
+	op3_var := c * d;
+	op3 <= op3_var;
+	
+	op4_var := a - e;
+	op4 <= op4_var;
+	
+	op2_var := op1_var * 42;
+	op2 <= op2_var;
+	
+	op5_var := op3_var * op4_var;
+	op5 <= op5_var;
+	
+	final_output <= op2_var - op5_var;
 end process;
 
 end behavioral;
