@@ -12,12 +12,13 @@ end pipeline;
 architecture behavioral of pipeline is
 
 	-- define the temp signals
-	signal stage: integer := 0;
-	signal op1_sig: integer := 0;
-	signal op3_sig: integer := 0;
-	signal op4_sig: integer := 0;
-	signal op2_sig: integer := 0;
-	signal op5_sig: integer := 0;
+	signal stage: integer;
+	signal op1_sig: integer;
+	signal op3_sig: integer;
+	signal op4_sig: integer;
+	signal op2_sig: integer;
+	signal op5_sig: integer;
+	signal final_sig: integer;
 
 begin
 -- todo: complete this
@@ -42,7 +43,8 @@ begin
 							op2 <= op2_sig;
 							op5 <= op5_sig;
 							
-				when 2 =>	final_output <= op2_sig - op5_sig;
+				when 2 =>	final_sig <= op2_sig - op5_sig;
+							final_output <= final_sig;
 				when others => null;
 			end case;
 		end loop;

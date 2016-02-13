@@ -7,7 +7,7 @@ entity comments_fsm is
 port (clk : in std_logic;
       reset : in std_logic;
       input : in std_logic_vector(7 downto 0);
-	  --state	: out std_logic_vector(3 downto 0); -- debug purposes
+	  state	: out std_logic_vector(3 downto 0); -- debug purposes
       output : out std_logic
   );
 end comments_fsm;
@@ -43,7 +43,7 @@ begin
 	case current_state is
 	
 		when Idle =>	output <= '0';
-						--state <= "0000";
+						state <= "0000";
 						if input /= SLASH_CHARACTER then
 							next_state <= Idle;
 						else
@@ -51,7 +51,7 @@ begin
 						end if;
 
 		when Slash1 =>	output <= '0';
-						--state <= "0001";
+						state <= "0001";
 						if input = SLASH_CHARACTER then
 							next_state <= Slash2;
 						elsif input = STAR_CHARACTER then
@@ -61,7 +61,7 @@ begin
 						end if;
 
 		when Slash2 =>	output <= '0';
-						--state <= "0010";
+						state <= "0010";
 						if input = NEW_LINE_CHARACTER then
 							next_state <= LineEnd;
 						else
@@ -69,7 +69,7 @@ begin
 						end if;
 		
 		when LineCo =>	output <= '1';
-						--state <= "0011";
+						state <= "0011";
 						if input /= NEW_LINE_CHARACTER then
 							next_state <= LineCo;
 						else
@@ -77,7 +77,7 @@ begin
 						end if;
 		
 		when LineEnd =>	output <= '1';
-						--state <= "0100";
+						state <= "0100";
 						if input = SLASH_CHARACTER then
 							next_state <= Slash1;
 						else
@@ -85,7 +85,7 @@ begin
 						end if;
 		
 		when Star1 =>	output <= '0';
-						--state <= "0101";
+						state <= "0101";
 						if input = STAR_CHARACTER then
 							next_state <= Star2;
 						else
@@ -93,7 +93,7 @@ begin
 						end if;
 		
 		when BlockCo =>	output <= '1';
-						--state <= "0110";
+						state <= "0110";
 						if input /= STAR_CHARACTER then
 							next_state <= BlockCo;
 						else
@@ -101,7 +101,7 @@ begin
 						end if;
 
 		when Star2 =>	output <= '1';
-						--state <= "0111";
+						state <= "0111";
 						if input /= SLASH_CHARACTER then
 							next_state <= BlockCo;
 						else
@@ -109,7 +109,7 @@ begin
 						end if;
 		
 		when BlockEnd =>	output <= '1';
-							--state <= "1000";
+							state <= "1000";
 							if input /= SLASH_CHARACTER then
 								next_state <= Idle;
 							else
